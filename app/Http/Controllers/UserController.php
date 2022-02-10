@@ -18,9 +18,7 @@ class UserController extends Controller
             'name' => $request->name,
             'password' => bcrypt($request->password),
         ]);
-
-        // Le asignamos el rol de Cliente
-        $user->assignRole('cliente');
+        $user->assignRole('user');
     }
 
 
