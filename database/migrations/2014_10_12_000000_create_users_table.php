@@ -6,21 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
-
-    public function up(){
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('password');
-            $table->string('name')->unique()->index();
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->id();
+            $table->string('name');
+            $table->timestamp('creation_date')->useCurrent();
             $table->timestamp('modification_date')->useCurrent();
             $table->string('image');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('password');
         });
     }
 
-    public function down() {
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
         Schema::dropIfExists('users');
     }
 }
