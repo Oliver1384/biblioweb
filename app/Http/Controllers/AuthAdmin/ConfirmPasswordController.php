@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\AuthAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -10,7 +10,7 @@ class ConfirmPasswordController extends Controller {
 
     use ConfirmsPasswords;
 
-    protected $redirectTo = RouteServiceProvider::USER;
+    protected $redirectTo = RouteServiceProvider::ADMIN;
 
     public function __construct() {
         $this->middleware('auth');

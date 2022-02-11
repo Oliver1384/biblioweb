@@ -12,20 +12,30 @@ Route::get('/admin', function () {
     return view('authAdmin.login');
 });
 
+
 Route::get('/registerAdmin', function () {
     return view('authAdmin.register');
 })->name('registerAdmin');
 
 Route::post('/registerAdmin',function(){
-   (new App\Http\Controllers\Auth\RegisterAdminController)->create($_POST);
+   (new App\Http\Controllers\AuthAdmin\RegisterController)->create($_POST);
 });
 
-Auth::routes();
+Route::get('/registerUser', function () {
+    return view('auth.register');
+})->name('registerUser');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/registerUser',function(){
+    (new App\Http\Controllers\Auth\RegisterController)->create($_POST);
+});
+
 
 
 
 Route::group(['middleware' => ['role:user']], function () {
-    //rutas accesibles solo para clientes
+    Route::post('/userProfile', [App\Http\Controllers\ProfileUserController::class, 'index'])->name('userProfile');
+});
+
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::post('/adminProfile', [App\Http\Controllers\ProfileAdminController::class, 'index'])->name('adminProfile');
 });

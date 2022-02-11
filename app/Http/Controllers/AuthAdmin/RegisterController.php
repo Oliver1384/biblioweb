@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\AuthAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -9,15 +9,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class RegisterAdminController extends Controller
-{
-
+class RegisterController extends Controller {
 
     use RegistersUsers;
 
-
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $redirectTo = RouteServiceProvider::ADMIN;
 
     public function __construct() {
         $this->middleware('guest');
@@ -32,9 +28,8 @@ class RegisterAdminController extends Controller
     }
 
 
-    public function create(array $data)
-    {
-        $user = User::create([
+    protected function create(array $data) {
+       $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
