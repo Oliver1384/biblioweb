@@ -41,8 +41,11 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register User') }}</a>
                                 </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('registerAdmin') }}">{{ __('Register Admin') }}</a>
+                                    </li>
                             @endif
                         @else
                             <li class="nav-item dropdown">
