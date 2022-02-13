@@ -21,9 +21,13 @@ Route::get('/registerAdmin', function() {
 })->name('registerAdmin');
 
 Route::group(['middleware' => ['role:user']], function () {
-    Route::get('/userProfile', [App\Http\Controllers\UserProfileController::class, 'index']);
+    Route::get('/userProfile', function () {
+        return view('user.profile');
+    });
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
-    Route::get('/adminProfile', [App\Http\Controllers\AdminProfileController::class, 'index']);
+    Route::get('/adminProfile', function () {
+        return view('admin.profile');
+    });
 });
