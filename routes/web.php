@@ -1,6 +1,4 @@
 <?php
-
-
 use App\Http\Controllers\BookController;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
@@ -33,11 +31,11 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     Route::get('/adminProfile', function () {
         $books = Book::all();
-        return view('adminProfile')->with('books', $books);
+        return view('admin.adminProfile')->with('books', $books);
     })->name('adminProfile');
 
     Route::get('/createBook', function() {
-        return view('createBook');
+        return view('admin.createBook');
     })->name('createBook');
 
     Route::resource('books', BookController::class);

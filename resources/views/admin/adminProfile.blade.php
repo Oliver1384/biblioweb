@@ -19,7 +19,7 @@
                 <td>{{$book['category']}}</td>
                 <td class="text-center">
                     <a class="btn btn-sm btn-info" href="">Mostrar</a>
-                    <a class="btn btn-sm btn-primary" href="">Editar</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('books.edit',$book->id) }}">Editar</a>
                     <form class="inline-block" action="" method="POST">
                         @csrf
                         @method('DELETE')

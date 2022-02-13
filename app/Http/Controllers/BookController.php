@@ -39,15 +39,15 @@ class BookController extends Controller
     }
 
 
-    public function show(Book $book)
+    public function show()
     {
-        return view('book.show',compact('book'));
+        $books= Book::paginate(5);
+        return view('admin.adminProfile', compact('books'));
     }
 
 
-    public function edit(Book $book)
-    {
-        return view('book.edit',compact('book'));
+    public function edit(Book $book) {
+        return view('admin.editBook',compact('book'));
     }
 
 
@@ -62,16 +62,16 @@ class BookController extends Controller
             'isbn'  => 'required|min:4|max:20',
         ]);
         $input = $request->all();
-        if ($image = $request->file('image')) {
+        /*if ($image = $request->file('image')) {
             $imageDestinationPath = 'uploads/';
             $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($imageDestinationPath, $postImage);
             $input['image'] = "$postImage";
         } else {
             unset($input['image']);
-        }
+        }*/
         $book->update($input);
-        return redirect()->route('adminProfile')->with('success','El producto ha sido actualizado');
+        return redirect()->route('admin.adminProfile')->with('success','El libro ha sido actualizado');
     }
 
 
