@@ -23,11 +23,11 @@ Route::get('/registerAdmin', function() {
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
         return view('userProfile');
-    });
+    })->name('userProfile');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/adminProfile', function () {
         return view('adminProfile');
-    });
+    })->name('adminProfile');
 });
