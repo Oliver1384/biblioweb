@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class ProfileUserController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware(['role:user']);
     }
 
     public function index() {
