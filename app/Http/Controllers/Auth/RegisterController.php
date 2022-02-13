@@ -73,7 +73,7 @@ class RegisterController extends Controller
         return $user;
     }
 
-    protected function createAdmin(array $data)
+    public function createAdmin(array $data)
     {
         $user = User::create([
             'name' => $data['name'],

@@ -12,7 +12,10 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/registerAdmin',[App\Http\Controllers\Auth\RegisterController::class,'createAdmin']);
+Route::post('/registerAdmin',function(){
+    (new App\Http\Controllers\Auth\RegisterController)->createAdmin($_POST);
+});
+
 
 Route::get('/registerAdmin', function() {
     return view('auth.registerAdmin');
