@@ -18,9 +18,8 @@
                 <td>{{$book['editorial']}}</td>
                 <td>{{$book['category']}}</td>
                 <td class="text-center">
-                    <a class="btn btn-sm btn-info" href="">Mostrar</a>
                     <a class="btn btn-sm btn-primary" href="{{ route('books.edit',$book->id) }}">Editar</a>
-                    <form class="inline-block" action="" method="POST">
+                    <form class="inline-block" action="{{ route('books.destroy',$book->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

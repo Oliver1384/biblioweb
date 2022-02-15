@@ -54,9 +54,9 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|min:3|max:30',
             'name' => 'required|min:3|max:30',
-            'autor' => 'required|min:3|max:30',
+            'author' => 'required|min:3|max:30',
             'editorial' => 'required|min:1|max:20',
             'category'  => 'required|min:4|max:10',
             'isbn'  => 'required|min:4|max:20',
@@ -71,14 +71,13 @@ class BookController extends Controller
             unset($input['image']);
         }*/
         $book->update($input);
-        return redirect()->route('admin.adminProfile')->with('success','El libro ha sido actualizado');
+        return redirect()->route('adminProfile');
     }
 
 
-    public function destroy(Book $book)
-    {
+    public function destroy(Book $book) {
         $book->delete();
-        return redirect()->route('adminProfile')->with('success','Producto eliminado');
+        return redirect()->route('adminProfile');
     }
 
 }
