@@ -54,7 +54,7 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'image' => 'required|min:3|max:30',
+            'image' => 'required|min:3|max:200',
             'name' => 'required|min:3|max:30',
             'author' => 'required|min:3|max:30',
             'editorial' => 'required|min:1|max:20',

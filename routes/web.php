@@ -23,7 +23,8 @@ Route::get('/registerAdmin', function() {
 
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
-        return view('userProfile');
+        $books = Book::all();
+        return view('user/userProfile')->with('books', $books);
     })->name('userProfile');
 });
 

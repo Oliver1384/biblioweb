@@ -4,6 +4,16 @@
         <button type="button" id="inicio" onClick="javascript:window.location.href='/adminProfile'">Perfil</button>
     </div>
     <p>Crear blog</p>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form class="createBlog" method="POST" action="{{route('books.store')}}">
         @csrf
         <div>

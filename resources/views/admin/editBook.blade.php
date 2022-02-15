@@ -1,8 +1,19 @@
 @extends('layouts.app')
 @section('title','Modificar libro')
 @section('content')
-    <form method="PUT" action="{{ route('books.update', ['book' => $book]) }}">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form method="POST" action="{{route('books.update',$book)}}">
         @csrf
+        @method('PUT')
         <label>Imagen:
             <input type="text"  name="image" value="{{$book['image']}}">
         </label>
@@ -23,4 +34,4 @@
         </label>
         <button type="submit">Aplicar cambios</button>
     </form>
-@stop
+@endsection
