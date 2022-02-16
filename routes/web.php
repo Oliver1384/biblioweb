@@ -13,8 +13,12 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/registerAdmin',function(){
-    (new App\Http\Controllers\Auth\RegisterController)->createAdmin($_POST);
-    return redirect()->route('login');
+    $request = (new App\Http\Controllers\Auth\RegisterController)->createAdmin($_POST);
+    if($request === null) {
+        return view('auth.registerAdmin')->with('error', 'El nombre o correo ya están registrados');
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::get('/registerAdmin', function() {
@@ -24,7 +28,7 @@ Route::get('/registerAdmin', function() {
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
         $books = Book::all();
-        return view('user/userProfile')->with('books', $books);
+        return view('user.userProfile')->with('books', $books);
     })->name('userProfile');
 });
 

@@ -64,25 +64,38 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        $user->assignRole('user');
+        $users = User::query()
+            ->orWhere('users.email', '=', $data['email'])
+            ->orWhere('users.name', '=', $data['name'])
+            ->select('users.id')
+            ->get();
+        $user = null;
+        if (count($users) === 0){
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+            $user->assignRole('user');
+        }
         return $user;
     }
 
-    public function createAdmin(array $data)
-    {
-        $users = User::all();
-        echo print_r($users);
-        /*$user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        $user->assignRole('admin');
-        return $user;*/
+    public function createAdmin(array $data) {
+        $users = User::query()
+            ->orWhere('users.email', '=', $data['email'])
+            ->orWhere('users.name', '=', $data['name'])
+            ->select('users.id')
+            ->get();
+        $user = null;
+        if (count($users) === 0){
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+            ]);
+            $user->assignRole('admin');
+        }
+        return $user;
     }
 }

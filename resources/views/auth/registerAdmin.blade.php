@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Registro para administrador</h1>
+    {{isset($error) ? $error : ''}}
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -11,7 +12,6 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('registerAdmin') }}">
                         @csrf
-
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
