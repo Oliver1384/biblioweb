@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\LoanController;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -42,9 +43,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/createBook', function() {
         return view('admin.createBook');
     })->name('createBook');
-
-    Route::resource('books', BookController::class);
 });
+
+Route::resource('books', BookController::class);
+
+Route::resource('loans', LoanController::class);
 
 
 

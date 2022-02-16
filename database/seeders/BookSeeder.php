@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 class BookSeeder extends Seeder {
 
     public function run(Faker $faker) {
-        DB::table('books')->truncate();
         for($i = 0; $i < 10; $i++) {
             DB::table('books')->insert([
                 'name' =>  $faker->title,

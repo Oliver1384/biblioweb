@@ -18,7 +18,10 @@
                 <td>{{$book['editorial']}}</td>
                 <td>{{$book['category']}}</td>
                 <td class="text-center">
-                    <a class="btn btn-sm btn-primary" href="{{ route('books.lend',$book->id) }}">Solicitar</a>
+                    <form class="solicitar" method="post" action="{{route('loans.store',['book'=>$book,'user'=>@Auth::user()])}}">
+                        @csrf
+                        <button type="submit">solicitar</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
