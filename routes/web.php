@@ -2,6 +2,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
 use App\Models\Book;
+use App\Models\Loan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,8 @@ Route::get('/registerAdmin', function() {
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
         $books = Book::all();
-        return view('user.userProfile')->with('books', $books);
+        $booksLoan = Loan::all();
+        return view('user.userProfile',['books'=>$books,'booksLoan'=>$booksLoan]);
     })->name('userProfile');
 });
 
@@ -43,6 +45,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/createBook', function() {
         return view('admin.createBook');
     })->name('createBook');
+
 });
 
 Route::resource('books', BookController::class);

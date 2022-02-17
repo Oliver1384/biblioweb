@@ -13,4 +13,5 @@ class Loan extends Model
         'book_loan_id',
         'user_loan_id',
     ];
+
 }
