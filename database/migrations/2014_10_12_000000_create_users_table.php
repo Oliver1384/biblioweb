@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('image')->default('/');
             $table->string('password');
         });
+
+        (new App\Http\Controllers\Auth\RegisterController)->createAdmin(['name'=>'admin','email'=>'adminbiblioweb@gmail.com','password'=>'1234']);
     }
 
     /**

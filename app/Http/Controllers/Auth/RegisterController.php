@@ -94,8 +94,18 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
+            $user->assignRole('user');
             $user->assignRole('admin');
         }
         return $user;
+    }
+
+    public function assignRolAdmin(array $data){
+        $users = User::query()
+            ->orWhere('users.email', '=', $data['email'])
+            ->orWhere('users.name', '=', $data['name'])
+            ->select('users.id')
+            ->get();
+        dd($users);
     }
 }
