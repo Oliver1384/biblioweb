@@ -100,12 +100,4 @@ class RegisterController extends Controller
         return $user;
     }
 
-    public function assignRolAdmin(array $data){
-        $users = User::query()
-            ->orWhere('users.email', '=', $data['email'])
-            ->orWhere('users.name', '=', $data['name'])
-            ->select('users.id')
-            ->get();
-        dd($users);
-    }
 }

@@ -2,6 +2,7 @@
 @section('content')
     <h1>Desde vista de administrador</h1>
     <a class="nav-link" href="{{route('createBook')}}">Agregar libro</a>
+    <a class="nav-link" href="{{route('addAdmin')}}">Agregar administrador</a>
     <table class="table table-bordered">
         <tr>
             <th>Imagen</th>
