@@ -48,6 +48,21 @@
             @endif
         @endforeach
     </table>
+    <style>
+        .paginator {
+            max-width: 500px;
+            max-height: 50px;
+            background-color: red;
+
+        }
+
+        .paginator svg{
+            max-height: 50px;
+        }
+
+    </style>
+    {!! $books->links() !!}
+
     <table class="table table-bordered">
         <h1>Libros en prestamo</h1>
         <tr>
@@ -71,4 +86,5 @@
             @endforeach
         @endforeach
     </table>
+
 @endsection

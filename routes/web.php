@@ -19,7 +19,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
-        $books = Book::all();
+        $books =  Book::paginate(5);
         $booksLoan = Loan::all();
         return view('user.userProfile',['books'=>$books,'booksLoan'=>$booksLoan]);
     })->name('userProfile');
