@@ -33,4 +33,8 @@ class LoanController extends Controller
         return redirect()->route('manageLoans');
     }
 
+    public function destroy(Loan $loan) {
+        $loan->delete();
+        return redirect()->route('manageLoans');
+    }
 }

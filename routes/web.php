@@ -48,7 +48,8 @@ Route::group(['middleware' => ['role:admin']], function () {
         $requestsLoan = RequestLoan::paginate(8);
         $books = Book::all();
         $users = User::all();
-        return view('admin.manageLoans',['requestsLoan'=>$requestsLoan,'books'=>$books,'users'=>$users]);
+        $loans = Loan::all();
+        return view('admin.manageLoans',['loans'=>$loans,'requestsLoan'=>$requestsLoan,'books'=>$books,'users'=>$users]);
     })->name('manageLoans');
 
 });
