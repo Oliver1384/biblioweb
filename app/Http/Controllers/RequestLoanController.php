@@ -10,7 +10,6 @@ class RequestLoanController extends Controller
 {
     protected function store(Request $request) {
         $userId = $request->query()["user_loan_id"];
-
         $loans = Loan::query()
             ->orWhere('loans.user_loan_id', '=', $userId)
             ->select('loans.id')
