@@ -23,9 +23,9 @@ class LoanController extends Controller {
             ->select('loans.expiration_date')
             ->get();
         $user = User::query()
-            ->orWhere('users.id', '=', $userId)
+            ->Where('users.id', '=', $userId)
             ->get();
-        $punishment_date = new Carbon($user[0]->value('punishment_date'));
+        $punishment_date = new Carbon($user->first()->getAttributes()["punishment_date"]);
         if ($currentDate->lt($punishment_date)){
             $overdueLoan = false;
         }

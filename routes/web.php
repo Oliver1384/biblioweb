@@ -13,11 +13,17 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('home');
+    $books = Book::paginate(5);
+    $booksLoan = Loan::paginate(5);
+    return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
 });
 
 Auth::routes();
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    $books = Book::paginate(5);
+    $booksLoan = Loan::paginate(5);
+    return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
+})->name('home');
 
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
