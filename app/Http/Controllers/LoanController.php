@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loan;
+use App\Models\RequestLoan;
 use Illuminate\Http\Request;
 
 class LoanController extends Controller
 {
 
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $loans = Loan::query()
             ->orWhere('loans.book_loan_id', '=', $request->all()["book_loan_id"])
             ->select('loans.id')
@@ -23,13 +23,14 @@ class LoanController extends Controller
             $input = $request->all();
             Loan::create($input);
         }
-        /*if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
-            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($imageDestinationPath, $postImage);
-            $input['image'] = "$postImage";
-        }*/
-        return redirect()->route('userProfile');
+        $requestsLoan = RequestLoan::query()
+            ->orWhere('request_loans.book_loan_id', '=', $request->all()["book_loan_id"])
+            ->select('request_loans.id')
+            ->get();
+        foreach($requestsLoan as $requestLoan) {
+            (new RequestLoanController)->destroy($requestLoan);
+        }
+        return redirect()->route('manageLoans');
     }
 
 }

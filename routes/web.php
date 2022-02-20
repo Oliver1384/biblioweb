@@ -44,6 +44,13 @@ Route::group(['middleware' => ['role:admin']], function () {
         return view('admin.addAdmin')->with('users',$users);
     })->name('addAdmin');
 
+    Route::get('/manageLoans', function() {
+        $requestsLoan = RequestLoan::paginate(8);
+        $books = Book::all();
+        $users = User::all();
+        return view('admin.manageLoans',['requestsLoan'=>$requestsLoan,'books'=>$books,'users'=>$users]);
+    })->name('manageLoans');
+
 });
 
 Route::resource('books', BookController::class);
