@@ -3,8 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\RequestLoanController;
 use App\Models\Book;
 use App\Models\Loan;
+use App\Models\RequestLoan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,15 +22,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
         $books =  Book::paginate(5);
-        $booksLoan = Loan::all();
-        return view('user.userProfile',['books'=>$books,'booksLoan'=>$booksLoan]);
+        $requestsLoan = RequestLoan::all();
+        $booksLoan = Loan::paginate(5);
+        return view('user.userProfile',['booksLoan'=>$booksLoan,'books'=>$books,'requestsLoan'=>$requestsLoan]);
     })->name('userProfile');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
 
     Route::get('/adminProfile', function () {
-        $books = Book::all();
+        $books = Book::paginate(5);
         return view('admin.adminProfile')->with('books', $books);
     })->name('adminProfile');
 
@@ -46,6 +49,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 Route::resource('books', BookController::class);
 
 Route::resource('loans', LoanController::class);
+
+Route::resource('requestLoans', RequestLoanController::class);
 
 Route::resource('admin', AdminController::class);
 

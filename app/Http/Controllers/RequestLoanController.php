@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Loan;
+use App\Models\RequestLoan;
 use Illuminate\Http\Request;
 
-class LoanController extends Controller
+class RequestLoanController extends Controller
 {
-
-
-    public function store(Request $request)
-    {
-        $loans = Loan::query()
-            ->orWhere('loans.book_loan_id', '=', $request->all()["book_loan_id"])
-            ->select('loans.id')
+    public function store(Request $request) {
+        $loans = RequestLoan::query()
+            ->orWhere('request_loans.book_loan_id', '=', $request->all()["book_loan_id"])
+            ->select('request_loans.id')
             ->get();
         if (count($loans) === 0) {
             $request->validate([
@@ -21,7 +18,7 @@ class LoanController extends Controller
                 'user_loan_id' => 'required|min:1|max:1000',
             ]);
             $input = $request->all();
-            Loan::create($input);
+            RequestLoan::create($input);
         }
         /*if ($image = $request->file('image')) {
             $imageDestinationPath = 'uploads/';
@@ -31,5 +28,4 @@ class LoanController extends Controller
         }*/
         return redirect()->route('userProfile');
     }
-
 }

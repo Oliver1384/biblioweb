@@ -17,24 +17,22 @@
             @php
                 $loan = true;
             @endphp
-
-            @foreach($booksLoan as $bookLoan)
-                @if($book->id === $bookLoan->book_loan_id)
+            @foreach($requestsLoan as $requestLoan)
+                @if($book->id === $requestLoan->book_loan_id)
                     @php
                         $loan = false;
                     @endphp
                 @endif
             @endforeach
-
-            @if($loan)
-                <tr>
-                    <td><img src="{{ $book['image'] }}" width="100px" alt="portada del libro"></td>
-                    <td>{{ $book['name']}}</td>
-                    <td>{{$book['author']}}</td>
-                    <td>{{$book['editorial']}}</td>
-                    <td>{{$book['category']}}</td>
+            <tr>
+                <td><img src="{{ $book['image'] }}" width="100px" alt="portada del libro"></td>
+                <td>{{ $book['name']}}</td>
+                <td>{{$book['author']}}</td>
+                <td>{{$book['editorial']}}</td>
+                <td>{{$book['category']}}</td>
+                @if($loan)
                     <td class="text-center">
-                        <form class="solicitar" method="post" action="{{route('loans.store',['book_loan_id'=> $book->id,'user_loan_id'=>@Auth::user()->id])}}">
+                        <form class="solicitar" method="post" action="{{route('requestLoans.store',['book_loan_id'=> $book->id,'user_loan_id'=>@Auth::user()->id])}}">
                             @csrf
                             @error('loan')
                             <span class="invalid-feedback" role="alert">
@@ -44,25 +42,15 @@
                             <button type="submit">solicitar</button>
                         </form>
                     </td>
-                </tr>
-            @endif
+                @else
+                    <td class="text-center">
+                       Solicitado
+                    </td>
+                @endif
+            </tr>
         @endforeach
     </table>
-    <style>
-        .paginator {
-            max-width: 500px;
-            max-height: 50px;
-            background-color: red;
-
-        }
-
-        .paginator svg{
-            max-height: 50px;
-        }
-
-    </style>
     {!! $books->links() !!}
-
     <table class="table table-bordered">
         <h1>Libros en prestamo</h1>
         <tr>
@@ -86,5 +74,6 @@
             @endforeach
         @endforeach
     </table>
+    {!! $booksLoan->links() !!}
 
 @endsection
