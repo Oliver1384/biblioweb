@@ -78,6 +78,10 @@ class LoanController extends Controller {
         $currentDate = Carbon::now();
         if ($expirationDate->lt($currentDate)){
             $punishment_days = $expirationDate->diffInDays($currentDate);
+            $current_punishment = new Carbon (User::where('id',$userId)->select('punishment_date')->get()->first()->getAttributes()["punishment_date"]);
+            if ($currentDate->lt($current_punishment)){
+                $punishment_days = $punishment_days + $currentDate->diffInDays($current_punishment);
+            }
             $punishment_date = Carbon::now()->addDays($punishment_days);
             User::where('id',$userId)->update(array('punishment_date'=>$punishment_date));
         }
