@@ -12,7 +12,7 @@ class LoanController extends Controller {
 
     public function store(Request $request) {
         $validate = $this->validateLoan($request);
-        if ($validate){
+        if ($validate[0]){
             $request->validate([
                 'book_loan_id' => 'required|min:1|max:1000',
                 'user_loan_id' => 'required|min:1|max:1000',
@@ -26,8 +26,11 @@ class LoanController extends Controller {
             foreach($requestsLoan as $requestLoan) {
                 (new RequestLoanController)->destroy($requestLoan);
             }
+            return redirect()->route('manageLoans');
+        } else {
+            return back()->with('errors', $validate[1]);
         }
-        return redirect()->route('manageLoans');
+
     }
 
     /**
@@ -36,6 +39,7 @@ class LoanController extends Controller {
      * si tiene prestado dos libros actualmente
      */
     protected function validateLoan(Request $request){
+        $errors = [];
         $overdueLoan = true;
         $currentDate = Carbon::now();
         $userId = $request->query()["user_loan_id"];
@@ -53,14 +57,19 @@ class LoanController extends Controller {
         $punishment_date = new Carbon($user->first()->getAttributes()["punishment_date"]);
         if ($currentDate->lt($punishment_date)){
             $overdueLoan = false;
+            array_push($errors,'El usuario tiene un castigo en curso por devolver libros tarde');
         }
         foreach ($currentUserloans as $currentUserloan){
             $expirationDate = new Carbon($currentUserloan->value('expiration_date'));
             if ($expirationDate->lt($currentDate)){
                 $overdueLoan = false;
+                array_push($errors,'El usuario tiene libros atrasados sin devolver');
             }
         }
-        return (count($loans) === 0 && count($currentUserloans) < 2 && $overdueLoan) ? true: false;
+        if (count($currentUserloans) >= 2){
+            array_push($errors,'El usuario ya tiene el máximo de libros que se permiten prestar (2)');
+        }
+        return (count($loans) === 0 && count($currentUserloans) < 2 && $overdueLoan) ? [true,$errors]: [false,$errors];
     }
 
     public function destroy(Loan $loan) {

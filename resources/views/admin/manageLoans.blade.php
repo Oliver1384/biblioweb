@@ -2,6 +2,11 @@
 @section('title','Administrar prestamos')
 @section('content')
     <p>Solicitudes de prestamo</p>
+    @if(isset($errors))
+        @foreach($errors as $error)
+            <p>{{$error}}</p>
+        @endforeach
+    @endif
     <table class="table table-bordered">
         <tr>
             <th>Nombre usuario</th>

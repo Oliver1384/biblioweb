@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+        </div>
+    @endif
     <h1>Panel de usuario</h1>
     @if(isset($error))
         <p>{{$error}}</p>

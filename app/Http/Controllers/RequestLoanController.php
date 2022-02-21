@@ -21,8 +21,10 @@ class RequestLoanController extends Controller
             ]);
             $input = $request->all();
             RequestLoan::create($input);
+            return redirect()->route('userProfile');
+        } else {
+            return back()->with('error', 'Tienes el máximo de libros que se permiten prestar (2)');
         }
-        return redirect()->route('userProfile');
     }
 
     public function destroy(RequestLoan $requestLoan) {
