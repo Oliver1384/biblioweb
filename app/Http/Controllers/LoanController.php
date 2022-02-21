@@ -11,6 +11,31 @@ use Illuminate\Http\Request;
 class LoanController extends Controller {
 
     public function store(Request $request) {
+        $validate = $this->validateLoan($request);
+        if ($validate){
+            $request->validate([
+                'book_loan_id' => 'required|min:1|max:1000',
+                'user_loan_id' => 'required|min:1|max:1000',
+            ]);
+            $input = $request->all();
+            Loan::create($input);
+            $requestsLoan = RequestLoan::query()
+                ->orWhere('request_loans.book_loan_id', '=', $request->all()["book_loan_id"])
+                ->select('request_loans.id')
+                ->get();
+            foreach($requestsLoan as $requestLoan) {
+                (new RequestLoanController)->destroy($requestLoan);
+            }
+        }
+        return redirect()->route('manageLoans');
+    }
+
+    /**
+     * Comprueba si tiene libros prestados pasados de fecha,
+     * si tiene un castigo ya aplicado y en curso y
+     * si tiene prestado dos libros actualmente
+     */
+    protected function validateLoan(Request $request){
         $overdueLoan = true;
         $currentDate = Carbon::now();
         $userId = $request->query()["user_loan_id"];
@@ -30,27 +55,12 @@ class LoanController extends Controller {
             $overdueLoan = false;
         }
         foreach ($currentUserloans as $currentUserloan){
-           $expirationDate = new Carbon($currentUserloan->value('expiration_date'));
+            $expirationDate = new Carbon($currentUserloan->value('expiration_date'));
             if ($expirationDate->lt($currentDate)){
                 $overdueLoan = false;
             }
         }
-        if (count($loans) === 0 && count($currentUserloans) < 2 && $overdueLoan) {
-            $request->validate([
-                'book_loan_id' => 'required|min:1|max:1000',
-                'user_loan_id' => 'required|min:1|max:1000',
-            ]);
-            $input = $request->all();
-            Loan::create($input);
-            $requestsLoan = RequestLoan::query()
-                ->orWhere('request_loans.book_loan_id', '=', $request->all()["book_loan_id"])
-                ->select('request_loans.id')
-                ->get();
-            foreach($requestsLoan as $requestLoan) {
-                (new RequestLoanController)->destroy($requestLoan);
-            }
-        }
-        return redirect()->route('manageLoans');
+        return (count($loans) === 0 && count($currentUserloans) < 2 && $overdueLoan) ? true: false;
     }
 
     public function destroy(Loan $loan) {
