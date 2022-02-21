@@ -20,8 +20,8 @@ class CreateLoansTable extends Migration
             $table->unsignedBigInteger('user_loan_id');
             $table->timestamps();
             $table->date('expiration_date')->default(Carbon::now()->addDays(14));
-            $table->foreign('book_loan_id')->references('id')->on('books');
-            $table->foreign('user_loan_id')->references('id')->on('users');
+            $table->foreign('book_loan_id')->references('id')->on('books')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_loan_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
