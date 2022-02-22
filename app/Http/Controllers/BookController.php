@@ -80,4 +80,11 @@ class BookController extends Controller
         return redirect()->route('adminProfile');
     }
 
+    public function search(Request $request){
+        $search = $request->input('search');
+        $books = Book::query()
+            ->where('name', 'LIKE', "%{$search}%")
+            ->paginate(5);
+        return $books;
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Loan;
 use App\Models\RequestLoan;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,12 @@ Route::resource('loans', LoanController::class);
 Route::resource('requestLoans', RequestLoanController::class);
 
 Route::resource('admin', AdminController::class);
+
+Route::get('/search', function(Request $request) {
+    $books = (new App\Http\Controllers\BookController)->search($request);
+    $booksLoan = Loan::paginate(5);
+    return view('home',['booksLoan'=>$booksLoan])->with('books',$books);
+})->name('search');
 
 
 
