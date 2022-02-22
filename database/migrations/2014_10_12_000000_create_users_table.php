@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('punishment_date')->useCurrent();
             $table->string('email');
-            $table->string('image')->default('/');
             $table->string('password');
         });
 
