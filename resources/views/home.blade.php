@@ -15,7 +15,7 @@
     @if(isset($error))
         <p>{{$error}}</p>
     @endif
-    <form action="{{ route('search') }}" method="GET">
+    <form action="{{ route('searchHome') }}" method="GET">
         <input type="text" name="search" required/>
         <button type="submit">Search</button>
     </form>

@@ -7,6 +7,10 @@
         </div>
     @endif
     <h1>Panel de usuario</h1>
+    <form action="{{ route('searchUserProfile') }}" method="GET">
+        <input type="text" name="search" required/>
+        <button type="submit">Search</button>
+    </form>
     @if(isset($error))
         <p>{{$error}}</p>
     @endif

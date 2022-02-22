@@ -26,6 +26,14 @@ Route::get('/home', function () {
     return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
 })->name('home');
 
+Route::get('/home', function (Request $request) {
+    $books =(new App\Http\Controllers\BookController)->search($request);
+    $booksLoan = Loan::paginate(5);
+    return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
+})->name('searchHome');
+
+
+
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
         $books =  Book::paginate(5);
@@ -33,6 +41,13 @@ Route::group(['middleware' => ['role:user']], function () {
         $booksLoan = Loan::paginate(5);
         return view('user.userProfile',['booksLoan'=>$booksLoan,'books'=>$books,'requestsLoan'=>$requestsLoan]);
     })->name('userProfile');
+
+    Route::get('/userProfileSearch', function (Request $request) {
+        $books = (new App\Http\Controllers\BookController)->search($request);
+        $requestsLoan = RequestLoan::all();
+        $booksLoan = Loan::paginate(5);
+        return view('user.userProfile',['booksLoan'=>$booksLoan,'books'=>$books,'requestsLoan'=>$requestsLoan]);
+    })->name('searchUserProfile');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
@@ -68,12 +83,6 @@ Route::resource('loans', LoanController::class);
 Route::resource('requestLoans', RequestLoanController::class);
 
 Route::resource('admin', AdminController::class);
-
-Route::get('/search', function(Request $request) {
-    $books = (new App\Http\Controllers\BookController)->search($request);
-    $booksLoan = Loan::paginate(5);
-    return view('home',['booksLoan'=>$booksLoan])->with('books',$books);
-})->name('search');
 
 
 
