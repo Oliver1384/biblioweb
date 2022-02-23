@@ -22,7 +22,11 @@
                 <td>{{$book['author']}}</td>
                 <td>{{$book['editorial']}}</td>
                 <td>{{$book['category']}}</td>
-                <td>{{$book['url_pdf']}}</td>
+                <td>
+                    <a href="{{url('/documents/designpatternsphp.pdf')}}" download onclick="return confirm('¿Quieres descargar el archivo?')">
+                        <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">
+                    </a>
+                </td>
                 <td class="text-center">
                     <a class="btn btn-sm btn-primary" href="{{ route('books.edit',$book->id) }}">Editar</a>
                     <form class="inline-block" action="{{ route('books.destroy',$book->id) }}" method="POST">

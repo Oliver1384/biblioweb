@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\User;
@@ -37,6 +38,15 @@ Route::group(['middleware' => ['role:user']], function () {
         $booksLoan = Loan::paginate(5);
         return view('user.userProfile',['booksLoan'=>$booksLoan,'books'=>$books]);
     })->name('searchUserProfile');
+
+    Route::get('/manageProfile', function () {
+        return view('user.manageProfile');
+    })->name('manageProfile');
+
+    Route::put('/updateProfile', function (Request $request) {
+        (new App\Http\Controllers\Auth\RegisterController())->update($request);
+        return route('home');
+    })->name('updateProfile');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -98,6 +100,30 @@ class RegisterController extends Controller
             $user->assignRole('admin');
         }
         return $user;
+    }
+
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+
+
+        $request->validate([
+            'name' => 'required|min:3|max:30',
+            'email' => 'required|min:6|max:30',
+            'password' => 'required|min:3|max:40',
+        ]);
+        /*if ($image = $request->file('image')) {
+            $imageDestinationPath = 'uploads/';
+            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($imageDestinationPath, $postImage);
+            $input['image'] = "$postImage";
+        } else {
+            unset($input['image']);
+        }*/
+
+        $input = array_slice($request->all(), 0, 5);
+        $user->update($input);
+        return redirect()->route('home');
     }
 
 }

@@ -25,6 +25,11 @@
                         <td>{{$book['author']}}</td>
                         <td>{{$book['editorial']}}</td>
                         <td>{{$book['category']}}</td>
+                        <td>
+                            <a href="{{url('/documents/designpatternsphp.pdf')}}" download onclick="return confirm('¿Quieres descargar el archivo?')">
+                                <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">
+                            </a>
+                        </td>
                     </tr>
                 @endif
             @endforeach
