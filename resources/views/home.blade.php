@@ -4,7 +4,7 @@
     <h1>HOME</h1>
     @if(@Auth::user() !== null)
         @if(@Auth::user()->hasRole('user'))
-            <a class="nav-link" href="{{ url('userProfile') }}">Panel de usuario</a>
+            <a class="nav-link" href="{{ url('userProfile') }}">Libros prestados</a>
         @endif
         @if(@Auth::user()->hasRole('admin'))
             <a class="nav-link" href="{{ route('adminProfile') }}">Panel de administrador</a>
@@ -31,7 +31,6 @@
     @foreach ($books as $book)
         @php
             $loan = true;
-            $requested = true;
         @endphp
         @foreach ($booksLoan as $bookLoan)
             @if($book->id === $bookLoan->book_loan_id)
@@ -40,21 +39,22 @@
                 @endphp
             @endif
         @endforeach
-            @if($loan)
-                <tr>
-                    <td><img src="{{ $book['image'] }}" width="100px" alt="portada del libro"></td>
-                    <td>{{ $book['name']}}</td>
-                    <td>{{$book['author']}}</td>
-                    <td>{{$book['editorial']}}</td>
-                    <td>{{$book['category']}}</td>
-                    <td>
-                        <a href="{{url('/documents/designpatternsphp.pdf')}}" download onclick="return confirm('¿Quieres descargar el archivo?')">
-                            <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">
-                        </a>
-                    </td>
-                </tr>
-            @endif
-        @endforeach
+
+        @if($loan)
+            <tr>
+                <td><img src="{{ $book['image'] }}" width="100px" alt="portada del libro"></td>
+                <td>{{ $book['name']}}</td>
+                <td>{{$book['author']}}</td>
+                <td>{{$book['editorial']}}</td>
+                <td>{{$book['category']}}</td>
+                <td>
+                    <a href="{{url('/documents/designpatternsphp.pdf')}}" download onclick="return confirm('¿Quieres descargar el archivo?')">
+                        <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">
+                    </a>
+                </td>
+            </tr>
+        @endif
+    @endforeach
     </table>
-    {!! $books->links() !!}
+
 @endsection

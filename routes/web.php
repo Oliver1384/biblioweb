@@ -6,21 +6,16 @@ use App\Http\Controllers\LoanController;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    $books = Book::paginate(5);
-    $booksLoan = Loan::paginate(5);
-    return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
-});
-
 Auth::routes();
-Route::get('/home', function () {
-    $books = Book::paginate(5);
-    $booksLoan = Loan::paginate(5);
+Route::get('/', function () {
+    $books = Book::all();
+    $booksLoan = Loan::all();
     return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
 })->name('home');
 
@@ -30,12 +25,10 @@ Route::get('/home', function (Request $request) {
     return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
 })->name('searchHome');
 
-
-
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
-        $books =  Book::paginate(5);
-        $booksLoan = Loan::paginate(5);
+        $books =  Book::all();
+        $booksLoan = Loan::all();
         return view('user.userProfile',['booksLoan'=>$booksLoan,'books'=>$books]);
     })->name('userProfile');
 
@@ -63,10 +56,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     })->name('addAdmin');
 
     Route::get('/manageLoans', function() {
-        $books = Book::all();
+        $books = Book::paginate(6);
         $users = User::all();
         $loans = Loan::all();
-        return view('admin.manageLoans',['loans'=>$loans,'books'=>$books,'users'=>$users]);
+        $currentDate = Carbon::now()->format('Y-m-d');
+        return view('admin.manageLoans',['currentDate'=>$currentDate,'loans'=>$loans,'books'=>$books,'users'=>$users]);
     })->name('manageLoans');
 });
 
