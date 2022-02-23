@@ -9,7 +9,6 @@
         @foreach ($users as $user)
             @if(count($user->getRoleNames()) != 2)
                 <tr>
-                    <td><img src="{{ $user['image'] }}" width="100px" alt="imagen de perfil del usuario"></td>
                     <td>{{ $user['name']}}</td>
                     <td>{{$user['email']}}</td>
                     <td class="text-center">

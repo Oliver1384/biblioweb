@@ -17,6 +17,7 @@ class BookSeeder extends Seeder {
                 'editorial' => $faker->company,
                 'category' => $faker->cityPrefix,
                 'image' => $faker->imageUrl(),
+                'url_pdf'=> '/images/pdf.png',
             ]);
         }
     }

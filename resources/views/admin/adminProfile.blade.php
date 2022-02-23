@@ -12,6 +12,7 @@
             <th>Autor</th>
             <th>Editorial</th>
             <th>Categoria</th>
+            <th>Documento</th>
         </tr>
         @foreach ($books as $book)
             <tr>
@@ -20,6 +21,7 @@
                 <td>{{$book['author']}}</td>
                 <td>{{$book['editorial']}}</td>
                 <td>{{$book['category']}}</td>
+                <td>{{$book['url_pdf']}}</td>
                 <td class="text-center">
                     <a class="btn btn-sm btn-primary" href="{{ route('books.edit',$book->id) }}">Editar</a>
                     <form class="inline-block" action="{{ route('books.destroy',$book->id) }}" method="POST">
