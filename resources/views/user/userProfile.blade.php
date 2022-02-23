@@ -34,13 +34,6 @@
                     @endphp
                 @endif
             @endforeach
-            @foreach($requestsLoan as $requestLoan)
-                @if($book->id === $requestLoan->book_loan_id && @Auth::user()->id === $requestLoan->user_loan_id)
-                    @php
-                        $requested = false;
-                    @endphp
-                @endif
-            @endforeach
             @if($loan)
                 <tr>
                     <td><img src="{{ $book['image'] }}" width="100px" alt="portada del libro"></td>
@@ -48,23 +41,6 @@
                     <td>{{$book['author']}}</td>
                     <td>{{$book['editorial']}}</td>
                     <td>{{$book['category']}}</td>
-                    @if($requested)
-                        <td class="text-center">
-                            <form class="solicitar" method="post" action="{{route('requestLoans.store',['book_loan_id'=> $book->id,'user_loan_id'=>@Auth::user()->id])}}">
-                                @csrf
-                                @error('loan')
-                                <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                                @enderror
-                                <button type="submit">solicitar</button>
-                            </form>
-                        </td>
-                    @else
-                        <td class="text-center">
-                           Solicitado
-                        </td>
-                    @endif
                 </tr>
             @endif
         @endforeach
