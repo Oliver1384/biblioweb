@@ -3,7 +3,8 @@
     <h1>Desde vista de administrador</h1>
     <a class="nav-link" href="{{route('createBook')}}">Agregar libro</a>
     <a class="nav-link" href="{{route('addAdmin')}}">Agregar administrador</a>
-    <a class="nav-link" href="{{route('manageLoans')}}">Administrar prestamos</a>
+    <a class="nav-link" href="{{route('createLoans')}}">Generar préstamos</a>
+    <a class="nav-link" href="{{route('manageLoans')}}">Administrar préstamos</a>
 
     <table class="table table-bordered">
         <tr>

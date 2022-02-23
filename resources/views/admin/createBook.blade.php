@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div>
-        <button type="button" id="inicio" onClick="javascript:window.location.href='/adminProfile'">Perfil</button>
-    </div>
+    <a class="nav-link" href="{{route('adminProfile')}}">Panel de administrador</a>
     <p>Crear blog</p>
     @if ($errors->any())
         <div class="alert alert-danger">

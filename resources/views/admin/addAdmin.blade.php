@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    <a class="nav-link" href="{{route('adminProfile')}}">Panel de administrador</a>
     <table class="table table-bordered">
         <tr>
             <th>Imagen</th>

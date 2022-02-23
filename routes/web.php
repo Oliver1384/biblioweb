@@ -55,12 +55,19 @@ Route::group(['middleware' => ['role:admin']], function () {
         return view('admin.addAdmin')->with('users',$users);
     })->name('addAdmin');
 
-    Route::get('/manageLoans', function() {
-        $books = Book::paginate(6);
+    Route::get('/createLoans', function() {
+        $books = Book::all();
         $users = User::all();
         $loans = Loan::all();
         $currentDate = Carbon::now()->format('Y-m-d');
-        return view('admin.manageLoans',['currentDate'=>$currentDate,'loans'=>$loans,'books'=>$books,'users'=>$users]);
+        return view('admin.createLoans',['currentDate'=>$currentDate,'loans'=>$loans,'books'=>$books,'users'=>$users]);
+    })->name('createLoans');
+
+    Route::get('/manageLoans', function() {
+        $books = Book::all();
+        $users = User::all();
+        $loans = Loan::all();
+        return view('admin.manageLoans',['loans'=>$loans,'books'=>$books,'users'=>$users]);
     })->name('manageLoans');
 });
 
