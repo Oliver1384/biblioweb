@@ -26,6 +26,7 @@
             <th>Autor</th>
             <th>Editorial</th>
             <th>Categoria</th>
+            <th>Documento pdf</th>
         </tr>
     @foreach ($books as $book)
         @php
@@ -46,6 +47,11 @@
                     <td>{{$book['author']}}</td>
                     <td>{{$book['editorial']}}</td>
                     <td>{{$book['category']}}</td>
+                    <td>
+                        <a href="{{url('/documents/designpatternsphp.pdf')}}" download>
+                            <img src="{{url('/images/pdf.png')}}" alt="icono de pdf">
+                        </a>
+                    </td>
                 </tr>
             @endif
         @endforeach
