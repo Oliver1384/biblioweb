@@ -24,7 +24,7 @@ class LoanController extends Controller {
             Loan::create($input);
             return redirect()->route('manageLoans');
         } else {
-            return back()->with('errors', $validate[1]);
+            return back()->with('errors', $validate[2]);
         }
 
     }
@@ -43,6 +43,10 @@ class LoanController extends Controller {
             ->Where('users.email', '=', $request->all()["userEmail"])
             ->select('users.id')
             ->get();
+        if (count($userId) === 0) {
+            array_push($errors,'El usuario no existe');
+            return [false,-1,$errors];
+        }
         $loans = Loan::query()
             ->orWhere('loans.book_loan_id', '=', $request->all()["book_loan_id"])
             ->select('loans.id')
@@ -54,6 +58,9 @@ class LoanController extends Controller {
         $user = User::query()
             ->Where('users.id', '=', $userId[0]->id)
             ->get();
+
+
+
         $punishment_date = new Carbon($user->first()->getAttributes()["punishment_date"]);
         if ($currentDate->lt($punishment_date)){
             $overdueLoan = false;

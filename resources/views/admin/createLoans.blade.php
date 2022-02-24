@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('title','Generar préstamos')
 @section('content')
+    @if(isset($errors))
+        @foreach($errors as $error)
+            <p>{{$error}}</p>
+        @endforeach
+    @endif
     <a class="nav-link" href="{{route('adminProfile')}}">Panel de administrador</a>
     <p>Panel de prestamos</p>
     <form class="inline-block" action="{{ route('loans.store') }}" method="POST">
@@ -35,11 +40,4 @@
         </div>
         <button type="submit" class="btn btn-sm btn-danger">Guardar</button>
     </form>
-
-    @if(isset($errors))
-        @foreach($errors as $error)
-            <p>{{$error}}</p>
-        @endforeach
-    @endif
-
 @endsection
