@@ -23,7 +23,7 @@ class BookController extends Controller
             'name' => 'required|min:3|max:30',
             'author' => 'required|min:3|max:30',
             'editorial' => 'required|min:1|max:20',
-            'category'  => 'required|min:4|max:10',
+            'category'  => 'required|min:4|max:50',
             'isbn'  => 'required|min:4|max:20',
         ]);
         $input = $request->all();
@@ -34,6 +34,7 @@ class BookController extends Controller
             $input['image'] = "$postImage";
         }
         Book::create($input);
+
         return redirect()->route('adminProfile')->with('success','Producto agregado!!');
     }
 
@@ -53,22 +54,19 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'image' => 'required|min:3|max:200',
             'name' => 'required|min:3|max:30',
             'author' => 'required|min:3|max:30',
             'editorial' => 'required|min:1|max:20',
-            'category'  => 'required|min:4|max:10',
+            'category'  => 'required|min:4|max:50',
             'isbn'  => 'required|min:4|max:20',
         ]);
         $input = $request->all();
-        /*if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
+        if ($image = $request->file('image')) {
+            $imageDestinationPath = 'images/';
             $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($imageDestinationPath, $postImage);
             $input['image'] = "$postImage";
-        } else {
-            unset($input['image']);
-        }*/
+        }
         $book->update($input);
         return redirect()->route('adminProfile');
     }

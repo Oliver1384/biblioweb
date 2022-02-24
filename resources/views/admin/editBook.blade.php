@@ -11,11 +11,11 @@
             </ul>
         </div>
     @endif
-    <form method="POST" action="{{route('books.update',$book)}}">
+    <form method="POST" action="{{route('books.update',$book)}}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <label>Imagen:
-            <input type="text"  name="image" value="{{$book['image']}}">
+            <input type="file" name="image">
         </label>
         <label>Nombre:
             <input type="text"  name="name" value="{{$book['name']}}">

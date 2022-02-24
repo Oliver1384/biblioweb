@@ -16,7 +16,7 @@ class BookSeeder extends Seeder {
                 'isbn'=> $faker->ssn,
                 'editorial' => $faker->company,
                 'category' => $faker->cityPrefix,
-                'image' => $faker->imageUrl(),
+                'image' => 'default-book.png',
                 'url_pdf'=> '/images/pdf.png',
             ]);
         }

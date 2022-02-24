@@ -17,7 +17,7 @@
         </tr>
         @foreach ($books as $book)
             <tr>
-                <td><img src="{{ $book['image'] }}" width="100px" alt="portada del libro"></td>
+                <td><img src="{{ asset('images/'.$book['image']) }}" width="100px" alt="portada del libro"></td>
                 <td>{{ $book['name']}}</td>
                 <td>{{$book['author']}}</td>
                 <td>{{$book['editorial']}}</td>

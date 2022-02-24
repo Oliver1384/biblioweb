@@ -17,22 +17,22 @@
         <div>
             <label>Imagen:
 
-                <input type="file" name="image">
+                <input type="file" name="image" value="{{old('image')}}">
             </label>
             <label>Nombre:
-                <input type="text"  name="name">
+                <input type="text"  name="name" value="{{old('name')}}">
             </label>
             <label>Autor:
-                <input type="text"  name="author">
+                <input type="text"  name="author" value="{{old('author')}}">
             </label>
             <label>Editorial:
-                <input type="text"  name="editorial">
+                <input type="text"  name="editorial" value="{{old('editorial')}}">
             </label>
             <label>Categoria:
-                <input type="text"  name="category">
+                <input type="text"  name="category" value="{{old('category')}}">
             </label>
             <label>Isbn:
-                <input type="text"  name="isbn">
+                <input type="text"  name="isbn" value="{{old('isbn')}}">
             </label>
         </div>
         <button type="submit">Crear</button>

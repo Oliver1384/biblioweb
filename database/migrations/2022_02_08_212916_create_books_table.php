@@ -15,7 +15,7 @@ class CreateBooksTable extends Migration
             $table->string('isbn');
             $table->string('editorial');
             $table->string('category');
-            $table->string('image');
+            $table->string('image')->default('default-book.png');
             $table->string('url_pdf')->default('designpatterns.pdf');
             $table->timestamp('updated_at')->useCurrent();
             $table->timestamp('created_at')->useCurrent();
