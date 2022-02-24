@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <a class="btn btn-sm btn-primary" href="{{route('createBook')}}">Agregar libro</a>
-    <a class="btn btn-sm btn-primary" href="{{route('addAdmin')}}">Agregar administrador</a>
-    <a class="btn btn-sm btn-primary" href="{{route('createLoans')}}">Generar préstamos</a>
-    <a class="btn btn-sm btn-primary" href="{{route('manageLoans')}}">Devolver préstamos</a>
-
+    <div class="controls">
+        <a class="btn btn-sm btn-primary" href="{{route('createBook')}}">Agregar libro</a>
+        <a class="btn btn-sm btn-primary" href="{{route('addAdmin')}}">Agregar administrador</a>
+        <a class="btn btn-sm btn-primary" href="{{route('createLoans')}}">Generar préstamos</a>
+        <a class="btn btn-sm btn-primary" href="{{route('manageLoans')}}">Devolver préstamos</a>
+    </div>
     <h1>Libros</h1>
     <table class="table table-bordered">
         <tr>
@@ -27,7 +28,7 @@
                         <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">
                     </a>
                 </td>
-                <td class="text-center">
+                <td class="controlsBook text-center">
                     <a class="btn btn-sm btn-primary" href="{{ route('books.edit',$book->id) }}">Editar</a>
                     <form class="inline-block" action="{{ route('books.destroy',$book->id) }}" method="POST">
                         @csrf
@@ -39,4 +40,12 @@
         @endforeach
     </table>
     {!! $books->links() !!}
+    <style>
+        .controlsBook{
+            display: flex;
+        }
+        .controlsBook > * {
+            margin: 0.5rem;
+        }
+    </style>
 @endsection

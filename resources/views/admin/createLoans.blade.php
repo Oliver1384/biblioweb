@@ -6,8 +6,8 @@
             <p>{{$error}}</p>
         @endforeach
     @endif
-    <a class="nav-link" href="{{route('adminProfile')}}">Panel de administrador</a>
-    <p>Panel de prestamos</p>
+    <a class="btn btn-sm btn-primary" href="{{route('adminProfile')}}">Panel de administrador</a>
+    <h1>Panel de prestamos</h1>
     <form class="inline-block" action="{{ route('loans.store') }}" method="POST">
         @csrf
         <label>Correo del usuario:
@@ -38,6 +38,30 @@
                 @endforeach
             </div>
         </div>
-        <button type="submit" class="btn btn-sm btn-danger">Guardar</button>
+        <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
     </form>
+    <style>
+        form {
+            padding: 1.5rem;
+            background-color: #6FC4E8;
+            border-radius: 6px 6px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            color:white;
+        }
+        form > * {
+            margin: 0.5rem;
+            display:flex;
+            justify-content: center;
+        }
+        input {
+            margin-left: 0.5rem;
+        }
+        button {
+            max-width: 150px;
+            grid-area: 4 / 1 /  5 / 3;
+            justify-self: center;
+            margin-top: 1.5rem;
+        }
+    </style>
 @endsection

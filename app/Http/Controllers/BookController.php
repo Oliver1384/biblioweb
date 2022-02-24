@@ -34,7 +34,6 @@ class BookController extends Controller
             $input['image'] = "$postImage";
         }
         Book::create($input);
-
         return redirect()->route('adminProfile')->with('success','Producto agregado!!');
     }
 

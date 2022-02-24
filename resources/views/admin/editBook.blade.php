@@ -32,6 +32,30 @@
         <label>Isbn:
             <input type="text"  name="isbn" value="{{$book["isbn"]}}">
         </label>
-        <button type="submit">Aplicar cambios</button>
+        <button class="btn btn-sm btn-primary" type="submit">Aplicar cambios</button>
     </form>
+    <style>
+        form {
+            padding: 1.5rem;
+            background-color: #6FC4E8;
+            border-radius: 6px 6px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            color:white;
+        }
+        form > * {
+            margin: 0.5rem;
+            display:flex;
+            justify-content: center;
+        }
+        input {
+            margin-left: 0.5rem;
+        }
+        button {
+            max-width: 150px;
+            grid-area: 4 / 1 /  5 / 3;
+            justify-self: center;
+            margin-top: 1.5rem;
+        }
+    </style>
 @endsection

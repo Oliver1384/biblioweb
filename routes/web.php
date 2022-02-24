@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', function () {
-    $books = Book::all();
+    $books = Book::paginate(6);
     $booksLoan = Loan::all();
     return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
 })->name('home');
@@ -28,7 +28,7 @@ Route::get('/home', function (Request $request) {
 
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
-        $books =  Book::all();
+        $books =  Book::paginate(6);
         $booksLoan = Loan::all();
         return view('user.userProfile',['booksLoan'=>$booksLoan,'books'=>$books]);
     })->name('userProfile');
@@ -44,8 +44,12 @@ Route::group(['middleware' => ['role:user']], function () {
     })->name('manageProfile');
 
     Route::put('/updateProfile', function (Request $request) {
-        (new App\Http\Controllers\Auth\RegisterController())->update($request);
-        return route('home');
+        $result = (new App\Http\Controllers\Auth\RegisterController())->update($request);
+        if($result[0]){
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('manageProfile')->with('errors', ['Las contraseñas no coinciden']);
+        }
     })->name('updateProfile');
 });
 

@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('title','Administrar préstamos')
 @section('content')
-    <a class="nav-link" href="{{route('adminProfile')}}">Panel de administrador</a>
-    <p>Devolver libros</p>
+    <div class="controls">
+        <a class="btn btn-sm btn-primary" href="{{route('adminProfile')}}">Panel de administrador</a>
+    </div>
+    <h1>Devolver libros</h1>
     <table class="table table-bordered">
         <tr>
             <th>Nombre usuario</th>

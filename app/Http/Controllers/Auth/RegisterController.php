@@ -106,24 +106,25 @@ class RegisterController extends Controller
     {
         $user = auth()->user();
 
-
-        $request->validate([
-            'name' => 'required|min:3|max:30',
-            'email' => 'required|min:6|max:30',
-            'password' => 'required|min:3|max:40',
-        ]);
-        /*if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
-            $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($imageDestinationPath, $postImage);
-            $input['image'] = "$postImage";
+        if ($request->all()["password"] != null) {
+            if ($request->all()["password"] != $request->all()["password2"]) {
+                return [false,'Las contraseñas no coinciden'];
+            }
+            $request->validate([
+                'name' => 'required|min:3|max:30',
+                'email' => 'required|min:6|max:30',
+                'password' => 'required|min:6|max:40',
+            ]);
+            $input = array_slice($request->all(), 0, 5);
         } else {
-            unset($input['image']);
-        }*/
-
-        $input = array_slice($request->all(), 0, 5);
+            $request->validate([
+                'name' => 'required|min:3|max:30',
+                'email' => 'required|min:6|max:30',
+            ]);
+            $input = array_slice($request->all(), 0, 4);
+        }
         $user->update($input);
-        return redirect()->route('home');
+        return [true,'Se han aplicado los cambios'];
     }
 
 }
