@@ -4,7 +4,7 @@
     <p>Crear blog</p>
     @if ($errors->any())
         <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+             A ocurrido un problema con los campos.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -12,11 +12,12 @@
             </ul>
         </div>
     @endif
-    <form class="createBlog" method="POST" action="{{route('books.store')}}">
+    <form class="createBlog" method="POST" action="{{route('books.store')}}" enctype="multipart/form-data">
         @csrf
         <div>
             <label>Imagen:
-                <input type="text"  name="image">
+
+                <input type="file" name="image">
             </label>
             <label>Nombre:
                 <input type="text"  name="name">

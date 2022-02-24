@@ -20,7 +20,6 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|min:3|max:30',
             'name' => 'required|min:3|max:30',
             'author' => 'required|min:3|max:30',
             'editorial' => 'required|min:1|max:20',
@@ -28,12 +27,12 @@ class BookController extends Controller
             'isbn'  => 'required|min:4|max:20',
         ]);
         $input = $request->all();
-        /*if ($image = $request->file('image')) {
-            $imageDestinationPath = 'uploads/';
+        if ($image = $request->file('image')) {
+            $imageDestinationPath = 'images/';
             $postImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($imageDestinationPath, $postImage);
             $input['image'] = "$postImage";
-        }*/
+        }
         Book::create($input);
         return redirect()->route('adminProfile')->with('success','Producto agregado!!');
     }
