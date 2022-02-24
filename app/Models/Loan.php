@@ -13,7 +13,6 @@ class Loan extends Model
         'book_loan_id',
         'user_loan_id',
         'expiration_date',
-        'start_date',
     ];
 
 }

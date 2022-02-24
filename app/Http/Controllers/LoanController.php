@@ -15,11 +15,9 @@ class LoanController extends Controller {
         if ($validate[0]){
             $request["book_loan_id"]= intval($request["book_loan_id"]);
             $request["user_loan_id"] = $validate[1];
-
             $request->validate([
                 'book_loan_id' => 'required|min:1|max:1000',
                 'user_loan_id' => 'required|min:1|max:1000',
-                'start_date' => 'required|min:5|max:20',
                 'expiration_date' => 'required|min:5|max:20',
             ]);
             $input = $request->all();

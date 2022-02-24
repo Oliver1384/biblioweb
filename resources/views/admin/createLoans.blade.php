@@ -8,9 +8,6 @@
         <label>Correo del usuario:
             <input type="text" name="userEmail">
         </label>
-        <label>Fecha de inicio:
-            <input type="date"  min="{{$currentDate}}" name="start_date">
-        </label>
         <label>Fecha de fin:
             <input type="date"  min="{{$currentDate}}" name="expiration_date">
         </label>

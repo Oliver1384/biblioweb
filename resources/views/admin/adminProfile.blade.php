@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Desde vista de administrador</h1>
-    <a class="nav-link" href="{{route('createBook')}}">Agregar libro</a>
-    <a class="nav-link" href="{{route('addAdmin')}}">Agregar administrador</a>
-    <a class="nav-link" href="{{route('createLoans')}}">Generar préstamos</a>
-    <a class="nav-link" href="{{route('manageLoans')}}">Administrar préstamos</a>
+    <a class="btn btn-sm btn-primary" href="{{route('createBook')}}">Agregar libro</a>
+    <a class="btn btn-sm btn-primary" href="{{route('addAdmin')}}">Agregar administrador</a>
+    <a class="btn btn-sm btn-primary" href="{{route('createLoans')}}">Generar préstamos</a>
+    <a class="btn btn-sm btn-primary" href="{{route('manageLoans')}}">Devolver préstamos</a>
 
+    <h1>Libros</h1>
     <table class="table table-bordered">
         <tr>
             <th>Imagen</th>
