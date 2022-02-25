@@ -7,8 +7,9 @@
     <h1>Devolver libros</h1>
     <table class="table table-bordered">
         <tr>
-            <th>Nombre usuario</th>
-            <th>Nombre libro</th>
+            <th>Correo de usuario</th>
+            <th>Nombre del libro</th>
+            <th>Fecha de expiración</th>
         </tr>
         @foreach ($loans as $loan)
             <tr>

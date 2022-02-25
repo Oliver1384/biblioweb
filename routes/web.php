@@ -73,7 +73,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     })->name('addAdmin');
 
     Route::get('/createLoans', function() {
-        $books = Book::all();
+        $books = Book::paginate(5);
         $users = User::all();
         $loans = Loan::all();
         $currentDate = Carbon::now()->format('Y-m-d');

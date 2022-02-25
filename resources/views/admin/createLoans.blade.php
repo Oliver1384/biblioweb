@@ -12,34 +12,36 @@
     <h1>Panel de prestamos</h1>
     <form class="inline-block" action="{{ route('loans.store') }}" method="POST">
         @csrf
+        <div class="selectBooks">
+            <div>
+                @foreach ($loans as $loan)
+                    @foreach($books as $book)
+                        @php
+                            $occupied = false;
+                        @endphp
+                        @foreach ($loans as $loan)
+                            @if($book->id === $loan->book_loan_id)
+                                @php
+                                    $occupied = true;
+                                @endphp
+                            @endif
+                        @endforeach
+                        @if(!$occupied)
+                            <label>{{$book["name"]}}
+                                <input type="radio" name="book_loan_id" value="{{$book["id"]}}">
+                            </label>
+                        @endif
+                    @endforeach
+                @endforeach
+            </div>
+            {{$books->links()}}
+        </div>
         <label>Correo del usuario:
-            <input type="text" name="userEmail">
+            <input type="text" name="userEmail" value="{{old('userEmail')}}">
         </label>
         <label>Fecha de fin:
             <input type="date"  min="{{$currentDate}}" name="expiration_date">
         </label>
-        <div>
-            <p>Selecciona un libro</p>
-            <div>
-                @foreach($books as $book)
-                    @php
-                        $occupied = false;
-                    @endphp
-                    @foreach ($loans as $loan)
-                        @if($book->id === $loan->book_loan_id)
-                            @php
-                                $occupied = true;
-                            @endphp
-                        @endif
-                    @endforeach
-                    @if(!$occupied)
-                        <label>{{$book["name"]}}
-                            <input type="radio" name="book_loan_id" value="{{$book["id"]}}" checked>
-                        </label>
-                    @endif
-                @endforeach
-            </div>
-        </div>
         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
     </form>
     <style>
@@ -61,9 +63,27 @@
         }
         button {
             max-width: 150px;
-            grid-area: 4 / 1 /  5 / 3;
+            grid-area: 3 / 1 /  4 / 3;
             justify-self: center;
             margin-top: 1.5rem;
+        }
+
+        .selectBooks {
+            border-radius: 6px 6px;
+            border: 2px solid #6FE8CA;
+            display: flex;
+            flex-direction: column;
+            grid-area: 1 / 1 /  2 / 3;
+        }
+        .selectBooks > * {
+            text-align: center;
+        }
+
+        .selectBooks label {
+            border: 2px solid #6FE8CA;
+            padding: 0.5rem;
+            border-radius: 6px 6px;
+            margin: 0.5rem;
         }
     </style>
 @endsection
