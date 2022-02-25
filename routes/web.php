@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 Route::get('/home', function (Request $request) {
     $books =(new App\Http\Controllers\BookController)->search($request);
+    if ($books === null){
+        $books = Book::paginate(6);
+    }
     $booksLoan = Loan::paginate(5);
     return view('home',['books'=>$books,'booksLoan'=>$booksLoan]);
 })->name('searchHome');

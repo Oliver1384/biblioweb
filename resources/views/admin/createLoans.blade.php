@@ -3,7 +3,9 @@
 @section('content')
     @if(isset($errors))
         @foreach($errors as $error)
-            <p>{{$error}}</p>
+            <div class="alert alert-danger">
+                {{$error}}
+            </div>
         @endforeach
     @endif
     <a class="btn btn-sm btn-primary" href="{{route('adminProfile')}}">Panel de administrador</a>

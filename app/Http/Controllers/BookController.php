@@ -78,6 +78,9 @@ class BookController extends Controller
 
     public function search(Request $request){
         $search = $request->input('search');
+        if ($search === null) {
+            return null;
+        }
         $books = Book::query()
             ->where('name', 'LIKE', "%{$search}%")
             ->paginate(5);

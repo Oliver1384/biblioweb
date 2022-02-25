@@ -13,11 +13,13 @@
         @endif
     </div>
     @if(isset($error))
-        <p>{{$error}}</p>
+        <div class="alert alert-danger">
+            {{$error}}
+        </div>
     @endif
     <h1>Libros disponibles</h1>
     <form class="searcher" action="{{ route('searchHome') }}" method="GET">
-        <input type="text" name="search" required/>
+        <input type="text" name="search"/>
         <button class="btn btn-sm btn-primary" type="submit">Search</button>
     </form>
     <table class="table table-bordered">
