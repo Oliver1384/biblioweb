@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <a class="btn btn-sm btn-primary" href="{{route('adminProfile')}}">Panel de administrador</a>
-    <h1>Crear blog</h1>
+    <h1>Agregar libro</h1>
     @if ($errors->any())
         <div class="alert alert-danger">
              A ocurrido un problema con los campos.<br><br>

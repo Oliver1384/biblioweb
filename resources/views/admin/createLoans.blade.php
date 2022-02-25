@@ -14,8 +14,7 @@
         @csrf
         <div class="selectBooks">
             <div>
-                @foreach ($loans as $loan)
-                    @foreach($books as $book)
+                @foreach($books as $book)
                         @php
                             $occupied = false;
                         @endphp
@@ -31,7 +30,6 @@
                                 <input type="radio" name="book_loan_id" value="{{$book["id"]}}">
                             </label>
                         @endif
-                    @endforeach
                 @endforeach
             </div>
             {{$books->links()}}

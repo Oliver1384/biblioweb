@@ -30,7 +30,7 @@ Route::get('/home', function (Request $request) {
 
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
-        $books =  Book::paginate(6);
+        $books =  Book::all();
         $currentDate = Carbon::now()->format('Y-m-d');
         $booksLoan = Loan::all();
         return view('user.userProfile',['currentDate'=>$currentDate,'booksLoan'=>$booksLoan,'books'=>$books]);

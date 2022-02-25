@@ -116,6 +116,7 @@ class RegisterController extends Controller
                 'password' => 'required|min:6|max:40',
             ]);
             $input = array_slice($request->all(), 0, 5);
+            $input["password"] =  Hash::make($input['password']);
         } else {
             $request->validate([
                 'name' => 'required|min:3|max:30',
@@ -123,7 +124,6 @@ class RegisterController extends Controller
             ]);
             $input = array_slice($request->all(), 0, 4);
         }
-        $input["password"] =  Hash::make($input['password']);
         $user->update($input);
         return [true,'Se han aplicado los cambios'];
     }
