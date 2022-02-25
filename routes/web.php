@@ -28,8 +28,9 @@ Route::get('/home', function (Request $request) {
 Route::group(['middleware' => ['role:user']], function () {
     Route::get('/userProfile', function () {
         $books =  Book::paginate(6);
+        $currentDate = Carbon::now()->format('Y-m-d');
         $booksLoan = Loan::all();
-        return view('user.userProfile',['booksLoan'=>$booksLoan,'books'=>$books]);
+        return view('user.userProfile',['currentDate'=>$currentDate,'booksLoan'=>$booksLoan,'books'=>$books]);
     })->name('userProfile');
 
     Route::get('/userProfileSearch', function (Request $request) {
@@ -80,7 +81,8 @@ Route::group(['middleware' => ['role:admin']], function () {
         $books = Book::all();
         $users = User::all();
         $loans = Loan::all();
-        return view('admin.manageLoans',['loans'=>$loans,'books'=>$books,'users'=>$users]);
+        $currentDate = Carbon::now()->format('Y-m-d');
+        return view('admin.manageLoans',['currentDate'=>$currentDate,'loans'=>$loans,'books'=>$books,'users'=>$users]);
     })->name('manageLoans');
 });
 

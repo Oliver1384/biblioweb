@@ -15,6 +15,7 @@
             <th>Autor</th>
             <th>Editorial</th>
             <th>Categoria</th>
+            <th>Fecha de fin</th>
         </tr>
         @foreach ($booksLoan as $bookLoan)
             @foreach($books as $book)
@@ -25,6 +26,16 @@
                         <td>{{$book['author']}}</td>
                         <td>{{$book['editorial']}}</td>
                         <td>{{$book['category']}}</td>
+                        @if($bookLoan['expiration_date'] < $currentDate)
+                            <td>
+                                <div class="alert alert-danger">
+                                    El libro ha exedido la fecha de devolución
+                                    {{$bookLoan['expiration_date']}}
+                                </div>
+                            </td>
+                        @else
+                            <td>{{$bookLoan['expiration_date']}}</td>
+                        @endif
                         <td>
                             <a href="{{url('/documents/designpatternsphp.pdf')}}" download onclick="return confirm('¿Quieres descargar el archivo?')">
                                 <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">

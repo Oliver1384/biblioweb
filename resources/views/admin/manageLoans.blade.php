@@ -20,6 +20,16 @@
                 @foreach($books as $book)
                     @if($book->id === $loan->book_loan_id)
                         <td>{{ $book['name']}}</td>
+                            @if($loan['expiration_date'] < $currentDate)
+                                <td>
+                                    <div class="alert alert-danger">
+                                        El libro ha exedido la fecha de devolución
+                                        {{$loan['expiration_date']}}
+                                    </div>
+                                </td>
+                            @else
+                                <td>{{$loan['expiration_date']}}</td>
+                            @endif
                     @endif
                 @endforeach
                 <td class="text-center">
