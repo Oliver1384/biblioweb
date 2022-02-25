@@ -30,6 +30,7 @@
             <th>Editorial</th>
             <th>Categoria</th>
             <th>Documento pdf</th>
+            <th>Estado</th>
         </tr>
         @foreach ($books as $book)
             @php
@@ -42,21 +43,32 @@
                     @endphp
                 @endif
             @endforeach
-
-            @if($loan)
-                <tr>
-                    <td><img src="{{ asset('images/'.$book['image']) }}" width="100px" alt="portada del libro"></td>
-                    <td>{{ $book['name']}}</td>
-                    <td>{{$book['author']}}</td>
-                    <td>{{$book['editorial']}}</td>
-                    <td>{{$book['category']}}</td>
+            <tr>
+                <td><img src="{{ asset('images/'.$book['image']) }}" width="100px" alt="portada del libro"></td>
+                <td>{{ $book['name']}}</td>
+                <td>{{$book['author']}}</td>
+                <td>{{$book['editorial']}}</td>
+                <td>{{$book['category']}}</td>
+                <td>
+                    <a href="{{url('/documents/designpatternsphp.pdf')}}" download onclick="return confirm('¿Quieres descargar el archivo?')">
+                        <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">
+                    </a>
+                </td>
+                @if(!$loan)
                     <td>
-                        <a href="{{url('/documents/designpatternsphp.pdf')}}" download onclick="return confirm('¿Quieres descargar el archivo?')">
-                            <img src="{{url($book['url_pdf'])}}" alt="icono de pdf">
-                        </a>
+                        <div class="alert alert-danger">
+                            Prestado
+                        </div>
                     </td>
-                </tr>
-            @endif
+                @else
+                    <td>
+                        <div class="alert alert-success">
+                            Disponible
+                        </div>
+                    </td>
+                @endif
+            </tr>
+
         @endforeach
     </table>
     {{ $books->links() }}
