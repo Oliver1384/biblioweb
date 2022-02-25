@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Book;
 use App\Models\Loan;
 use App\Models\User;

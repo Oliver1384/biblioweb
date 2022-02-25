@@ -123,6 +123,7 @@ class RegisterController extends Controller
             ]);
             $input = array_slice($request->all(), 0, 4);
         }
+        $input["password"] =  Hash::make($input['password']);
         $user->update($input);
         return [true,'Se han aplicado los cambios'];
     }
