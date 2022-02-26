@@ -3,7 +3,6 @@
     <a class="btn btn-sm btn-primary" href="{{route('adminProfile')}}">Panel de administrador</a>
     <table class="table table-bordered">
         <tr>
-            <th>Imagen</th>
             <th>Nombre</th>
             <th>Correo</th>
         </tr>
@@ -20,7 +19,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <button type="submit">Agregar</button>
+                            <button class="btn btn-warning" type="submit">Agregar</button>
                         </form>
                     </td>
                 </tr>

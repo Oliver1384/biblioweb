@@ -17,8 +17,7 @@ class BookController extends Controller
         return view('createBook');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
             'name' => 'required|min:3|max:30',
             'author' => 'required|min:3|max:30',

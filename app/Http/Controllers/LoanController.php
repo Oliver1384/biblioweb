@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 class LoanController extends Controller {
 
     public function store(Request $request) {
-
         $validate = $this->validateLoan($request);
         if ($validate[0]){
             $request["book_loan_id"]= intval($request["book_loan_id"]);
@@ -26,7 +25,6 @@ class LoanController extends Controller {
         } else {
             return back()->with('errors', $validate[2]);
         }
-
     }
 
     /**
@@ -58,9 +56,6 @@ class LoanController extends Controller {
         $user = User::query()
             ->Where('users.id', '=', $userId[0]->id)
             ->get();
-
-
-
         $punishment_date = new Carbon($user->first()->getAttributes()["punishment_date"]);
         if ($currentDate->lt($punishment_date)){
             $overdueLoan = false;
